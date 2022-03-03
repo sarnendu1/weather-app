@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Weathercard from "./weathercard";
 import "../style.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 const Temp = () => {
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState("kolkata");
   const [tempInfo, setTempInfo] = useState({});
 
   const getWeatherInfo = async () => {
@@ -38,6 +40,14 @@ const Temp = () => {
 
   useEffect(() => {
     getWeatherInfo();
+
+    var input = document.getElementById("search");
+input.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+   event.preventDefault();
+   document.getElementById("searchbutton").click();
+  }
+});
   }, []);
 
   return (
@@ -55,10 +65,11 @@ const Temp = () => {
           />
 
           <button
+            id="searchbutton"
             className="searchButton"
             type="button"
             onClick={getWeatherInfo}>
-            Search
+            <FontAwesomeIcon icon={faMagnifyingGlass}/>
           </button>
         </div>
       </div>
